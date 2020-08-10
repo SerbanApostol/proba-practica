@@ -1,6 +1,5 @@
 import paho.mqtt.client as mqtt # Import the MQTT library
-import mysql.connector
-from mysql.connector import Error
+from influxdb import InfluxDBClient
 
 def messageFunction (client, userdata, message):
   message = str(message.payload.decode("utf-8")).split() #Convert message to string
