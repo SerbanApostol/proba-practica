@@ -5,23 +5,11 @@ import os
 
 ourClient = mqtt.Client("proba_practica") # Create a MQTT client object
 ourClient.connect("mqtt.beia-telemetrie.ro", 1883) # Connect to the MQTT broker
-ourClient.subscribe("/training/device/Apostol_Serban/") # Subscribe to the topic
+ourClient.subscribe("/training/device/Lorena_Muja/") # Subscribe to the topic
 
 while True:
   temp = check_output("/opt/vc/bin/vcgencmd measure_temp", shell=True) # Get CPU temperature
   now = time.strftime("%d-%b-%Y,%H:%M:%S") # Get time
-  info = now + ' ' + str(temp[5:9])[2:6]
-  ourClient.publish("/training/device/Apostol_Serban/", info) # Publish time and CPU temperature to MQTT broker
-
-  # Writing to local file
-  filename = "/home/pi/Apostol_Serban/temp.txt"
-  try:
-    with open(filename, 'a') as f:
-      f.write(info + '\n')
-      f.close()
-  except:
-    print("File does not exist!")
-    f = open(filename, 'x')
-    f.write(info + '\n')
-    f.close()
+  info = "\"Time:\" + now + ",\"CPU_temp\"" + str(temp[5:9])[2:6]
+  ourClient.publish("/training/device/Lorena_Muja/", info) # Publish time and CPU temperature to MQTT broker
   time.sleep(20) # Sleep for 20 seconds
