@@ -13,10 +13,10 @@ def try_connecting():
       is_connected=True
       tmp_arr=[]
       try:
-        with open("/home/pi/Geanina_Vintila/temporary.log", "r") as tmp:
+        with open("/home/pi/Serban_Apostol/temporary.log", "r") as tmp:
           for x in tmp:
             tmp_arr.append(str(x))
-        os.remove("/home/pi/Geanina_Vintila/temporary.log")
+        os.remove("/home/pi/Serban_Apostol/temporary.log")
       except:
         pass
       for x in tmp_arr:
@@ -29,7 +29,7 @@ def try_connecting():
 is_connected=False
 ourClient = mqtt.Client("proba_practica") # Create a MQTT client object
 #try_connecting()
-#ourClient.subscribe("training/device/Geanina_Vintila") # Subscribe to the topic
+#ourClient.subscribe("training/device/Serban_Apostol") # Subscribe to the topic
 
 dht_device = adafruit_dht.DHT11(board.D4)
 
@@ -44,12 +44,12 @@ while True:
               "Humidity":round(hum,2)
              }
       print(info)
-      with open("/home/pi/Geanina_Vintila/Geanina_Vintila.log", "a") as log:
+      with open("/home/pi/Serban_Apostol/CPU_temp.log", "a") as log:
         log.write(str(info)+"\n")
       if is_connected:
         ourClient.publish("training/device/Serban_Apostol", json.dumps(info)) # Publish time and CPU temperature to MQTT broker
       else:
-        with open("/home/pi/Geanina_Vintila/temporary.log", "a") as tmp:
+        with open("/home/pi/Serban_Apostol/temporary.log", "a") as tmp:
           tmp.write(json.dumps(info)+"\n")
       time.sleep(5) # Sleep for 5 seconds
   except Exception as e:
