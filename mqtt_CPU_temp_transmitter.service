@@ -2,7 +2,7 @@
 Description=Sends the CPU temperature through MQTT
 
 [Service]
-ExecStart=python3 /home/pi/Serban_Apostol/proba_practica.py
+ExecStart=sudo /usr/bin/python3 /home/pi/Serban_Apostol/proba_practica.py
 Restart=always
 
 [Install]
